@@ -2,7 +2,7 @@
 
 Calculate recorded POT on tape in ANNIE and from the IFBeam Database. 
 
-* ```main.py``` will execute the ```BeamFetcherV2``` toolchain in ToolAnalysis to query the database and grab timestamps + beam information that are within some time tolerance of our CTC timestamps. This "recorded" POT we have on tape is stored in a root file and saved in ```persistent/```, to be used later by the event building process. The script will also sum the POT from both toroid devices stored in ```BeamFetcherV2``` root files for ANNIE and print the total. 
+* ```main.py``` will execute the ```BeamFetcherV2``` toolchain in ToolAnalysis to query the database and grab timestamps + beam information that are within some time tolerance of our CTC timestamps. This "recorded" POT we have on tape is stored in a root file and saved in ```persistent/```, to be later used by the event building process. The script will also sum the POT from both toroid devices stored in ```BeamFetcherV2``` root files for ANNIE and print the total. 
 
 * ```querybnb_ind.py``` fetches device information as recorded by the IFBeam database.
 
