@@ -12,6 +12,7 @@ Please only provide beam runs to the script.
 
 ### usage:
 ```python3 querybnb_ind.py "2024-03-27 11:24:55.511343" "2024-03-31 15:57:41.028200"```
+- The timestamps passed to this script are in  UTC (can use the timestamps from the SQL database).
 
 ```python3 main.py```
 
