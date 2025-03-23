@@ -11,7 +11,7 @@
 # Stolen from Marvin by Steven :)
 
 import urllib.request, sys
-from datetime import datetime, tzinfo, timedelta
+from datetime import datetime, tzinfo, timedelta, timezone
 import time
 from collections import defaultdict
 import numpy as np
@@ -60,8 +60,8 @@ def main(argv):
     time1 = str(sys.argv[1])
     time2 = str(sys.argv[2])
 
-    mv1 = datetime.strptime(time1, "%Y-%m-%d %H:%M:%S.%f")
-    mv2 = datetime.strptime(time2, "%Y-%m-%d %H:%M:%S.%f")
+    mv1 = datetime.strptime(time1, "%Y-%m-%d %H:%M:%S.%f").replace(tzinfo=timezone.utc)
+    mv2 = datetime.strptime(time2, "%Y-%m-%d %H:%M:%S.%f").replace(tzinfo=timezone.utc)
 
     t0 = int(mv1.timestamp())
     t1 = int(mv2.timestamp())
