@@ -100,4 +100,6 @@ print(total_pot_860, ' [TOR860]')
 print(total_pot_875, ' [TOR875]')
 print('\n\n')
 
+os.system('rm -rf beam.list')
+
 # done
