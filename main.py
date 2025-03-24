@@ -117,10 +117,13 @@ print(total_pot_860, ' [TOR860]')
 print(total_pot_875, ' [TOR875]')
 print('\n')
 
+print('Delivered POT from the BNB:', delivered_pot, 'e12\n')
+
 eff = round(100*total_pot_875 / delivered_pot, 1)   # take it out of E:TOR875 for now
 print('POT efficiency for ANNIE:', eff, '%')
 print('\n')
 
+# clean up
 os.system('rm -rf beam.list')
 
 # done
