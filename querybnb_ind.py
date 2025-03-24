@@ -11,13 +11,8 @@
 # Stolen from Marvin by Steven :)
 
 import urllib.request, sys
-from datetime import datetime, tzinfo, timedelta, timezone
-import time
-from collections import defaultdict
+from datetime import datetime, timezone
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mticker
-import sys
 
 def composeURL( event, device, t0, t1 ):
     baseURL = "https://dbdata1vm.fnal.gov:9443/ifbeam/data/data?v=%s&e=e,%s&t0=%s&t1=%s&f=csv" % (device, event, t0, t1)

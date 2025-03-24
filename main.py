@@ -17,6 +17,8 @@
 import os
 import time
 from lib import help as help
+import subprocess
+import re
 
 #
 #
@@ -34,6 +36,8 @@ singularity = '-B/pnfs:/pnfs,/exp/annie/app/users/' + user + '/temp_directory:/t
 TA_folder = '<my_toolanalysis/'   # name of the ToolAnalysis folder to run the BeamFetcherV2 toolchain
 
 BF_step_size = 10                 # number of part files per step to execute the BeamFetcher toolchain (default = 10)
+
+SQL_file = 'ANNIE_SQL_RUNS.txt'   # SQL filename
 
 '''@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'''
 
@@ -66,16 +70,22 @@ elif user_confirm != 'y' and user_confirm != 'n':
     exit()
 print('\n')
 
-# obtain runs from the user
+# obtain run range from the user
 runs_to_run_user = help.get_runs_from_user()
+
+# filter runs provided by the user to only run over beam type and grab their start + end times
+start_time, end_time, beam_runs_to_run = help.read_SQL(SQL_file, runs_to_run_user)
+print('\n')
 
 # we have to make sure there are RAWData for each run [rpvoded]
 print('\nVetting the runs you submitted...')
-runs_to_run = help.is_there_raw(runs_to_run_user, raw_path)
+runs_to_run = help.is_there_raw(beam_runs_to_run, raw_path)
 
 print('\n')
 print('  - BeamFetcherV2 ToolAnalysis path: ', app_path)
 print('  - Runs to run: ', runs_to_run)
+print('  - Start time: ', start_time)
+print('  - End time: ', end_time)
 print('\n')
 time.sleep(1)
 print('Locking arguments in...')
@@ -92,13 +102,24 @@ for run in runs_to_run:
     pot_875, pot_860 = help.POT(run, beamfetcher_path)
     total_pot_875 += pot_875; total_pot_860 += pot_860
 
+
+# fetch the delivered POT from the booster
+print('\nQuerying the beam database for the delivered POT... (this may take a minute)')
+print('Start time:', start_time, ', End time:', end_time)
+#os.system('python3 querybnb_ind.py "' + start_time + '" "' + end_time + '"')
+delivered_pot = help.python_query(start_time, end_time)    # query the database using Marvin's tool
+
 print('\n\n')
 print('For runs: ', runs_to_run, '\n')
 print('Total POT (e12)')
 print('---------------------')
 print(total_pot_860, ' [TOR860]')
 print(total_pot_875, ' [TOR875]')
-print('\n\n')
+print('\n')
+
+eff = round(100*total_pot_875 / delivered_pot, 1)   # take it out of E:TOR875 for now
+print('POT efficiency for ANNIE:', eff, '%')
+print('\n')
 
 os.system('rm -rf beam.list')
 
