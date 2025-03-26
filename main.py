@@ -50,7 +50,7 @@ SQL_file = 'ANNIE_SQL_RUNS.txt'   # SQL filename
 
 # constructed paths based on user customization and current areas of data
 
-app_path = '/exp/annie/app/users/' + user + '/' + TA_folder                                        # TA folder used for running the BeamFetcherV2 toolchain
+app_path = '/exp/annie/app/users/' + user + '/' + TA_folder + '/'                                  # TA folder used for running the BeamFetcherV2 toolchain
 
 pwd_path = os.getcwd()                                                                             # present working directory
 
