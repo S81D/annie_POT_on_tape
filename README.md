@@ -23,4 +23,6 @@ Calculate recorded POT on tape in ANNIE, delivered POT from the IFBeam Database,
 
 ### Additional information
 * In the process of running the toolchain, the scripts will enter the singularity container. Ensure the bind mounted folders in ```main.py``` within the singularity command are correct for you.
+* In the header of `main.py`, setting `POT_counting = False` will just process the BFV2 root files and not calculate the efficiency.
+* The repo has been recently altered to run the BFV2 toolchain NOT in chunks. There are outstanding changes in the main ToolAnalysis repo that are awaiting merging that you must include to ensure these scripts will work properly (as of May 2nd, 2025).
 * Standalone usage for the query tool: ```python3 querybnb_ind.py "2024-03-27 11:24:55.511343" "2024-03-31 15:57:41.028200"```
