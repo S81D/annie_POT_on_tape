@@ -98,7 +98,7 @@ time.sleep(1)
 # execute the toolchain and calculate the total recorded POT
 total_pot_875 = 0; total_pot_860 = 0
 for run in runs_to_run:
-    help.beamfetcher(run, app_path, scratch_path, singularity, beamfetcher_path)
+    help.beamfetcher(run, app_path, pwd_path, singularity, beamfetcher_path)
     pot_875, pot_860 = help.POT(run, beamfetcher_path)
     total_pot_875 += pot_875; total_pot_860 += pot_860
 
