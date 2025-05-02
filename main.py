@@ -104,7 +104,7 @@ for run in runs_to_run:
 
 # for just producing the BFV2 files, exit
 if POT_counting == False:
-    print('\nAll BeamFetcherV2 root files created. POT_counting == False, exiting now...\n)
+    print('\nAll BeamFetcherV2 root files created. POT_counting == False, exiting now...\n')
     os.system('rm -rf beam.list')
     exit() 
 
