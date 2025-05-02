@@ -35,9 +35,9 @@ singularity = '-B/pnfs:/pnfs,/exp/annie/app/users/' + user + '/temp_directory:/t
 
 TA_folder = '<my_toolanalysis/'   # name of the ToolAnalysis folder to run the BeamFetcherV2 toolchain
 
-BF_step_size = 10                 # number of part files per step to execute the BeamFetcher toolchain (default = 10)
-
 SQL_file = 'ANNIE_SQL_RUNS.txt'   # SQL filename
+
+POT_counting = True               # True = BeamFetcherV2 file creation + query to IF Beam database to assess efficiency, False = just BFV2 file creation
 
 '''@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@'''
 
@@ -98,10 +98,15 @@ time.sleep(1)
 # execute the toolchain and calculate the total recorded POT
 total_pot_875 = 0; total_pot_860 = 0
 for run in runs_to_run:
-    help.beamfetcher(run, BF_step_size, raw_path, app_path, pwd_path, singularity, beamfetcher_path)
+    help.beamfetcher(run, app_path, scratch_path, singularity, beamfetcher_path)
     pot_875, pot_860 = help.POT(run, beamfetcher_path)
     total_pot_875 += pot_875; total_pot_860 += pot_860
 
+# for just producing the BFV2 files, exit
+if POT_counting == False:
+    print('\nAll BeamFetcherV2 root files created. POT_counting == False, exiting now...\n)
+    os.system('rm -rf beam.list')
+    exit() 
 
 # fetch the delivered POT from the booster
 print('\nQuerying the beam database for the delivered POT... (this may take a minute)')
