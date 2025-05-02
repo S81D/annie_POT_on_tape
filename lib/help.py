@@ -104,7 +104,7 @@ def read_SQL(SQL_file, runs):
     beam_run_numbers = [run[0] for run in beam_runs]
     beam_run_numbers.sort()
     
-    return earliest_start, latest_stop, beam_runs
+    return earliest_start, latest_stop, beam_run_numbers
 
 
 # run BeamFetcherV2 toolchain
